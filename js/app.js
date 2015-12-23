@@ -17,7 +17,7 @@ $(document).ready(function(){
 var guessCount = 0;
 var correctGuess = false;
 var num = Math.floor((Math.random() * 100) + 1); 
-var finish = false;
+
 
   /*--- Generate Random Number ---*/
 
@@ -28,12 +28,13 @@ $('form').submit(function() {
   var userGuess =$('#userGuess').val();
     console.log(num);
     console.log(userGuess);
+  $('#guessList ul').append('<li>'+ userGuess + '</li>');
+  
     guessCount += 1;
   $("#count").text(guessCount);
-  $('#guessList ul').append('<li>'+ userGuess + '</li>');
-    });
-  var guessList = "<li>" + userGuess + "</li>";
+    
   var difference = userGuess - num;
+  
   if (userGuess == num) {
     $('#feedback').append("You win! You guessed the right Number!");
     correctGuess = true;
@@ -50,7 +51,7 @@ $('form').submit(function() {
     };
 
     return false;
- 
+ });
 });
 
 
@@ -62,12 +63,12 @@ $('form').submit(function() {
 /*--- Function that resets game --*/
     function newGame(){
         guessCount = 0;
-        finish = false;
+        correctGuess = false;
         $('#userGuess').val('');
         $('#count').text(guessCount);
         $('#guessList li').remove();
         num = (Math.floor(Math.random()*10));
-        console.log("it works! new secret number is " + num);
+        console.log("new random number is " + num);
     }
 
 
