@@ -14,9 +14,9 @@ $(document).ready(function(){
 
     /*--- Universal variables ---*/
 
-var guessCount = 0;
-var correctGuess = false;
-var num = Math.floor((Math.random() * 100) + 1); 
+guessCount = 0;
+correctGuess = false;
+num = Math.floor((Math.random() * 100) + 1); 
 
 
   /*--- Generate Random Number ---*/
@@ -28,14 +28,15 @@ $('form').submit(function() {
   var userGuess =$('#userGuess').val();
     console.log(num);
     console.log(userGuess);
-  $('#guessList ul').append('<li>'+ userGuess + '</li>');
-  
+  $('#guessList').append('<li>'+ userGuess + '</li>');
     guessCount += 1;
+    
   $("#count").text(guessCount);
     
-  var difference = userGuess - num;
-  
+  var difference = (Math.abs(userGuess - num));
+   $('#feedback').empty();
   if (userGuess == num) {
+    
     $('#feedback').append("You win! You guessed the right Number!");
     correctGuess = true;
     } else if (difference >= 1 && difference <= 10) {
@@ -56,7 +57,8 @@ $('form').submit(function() {
 
 
 /*---- To start a new game ----*/
-    $('.new').click(function(){
+    $('.new').click(function(e){
+        e.preventDefault();
         newGame();
     });
 
@@ -65,11 +67,17 @@ $('form').submit(function() {
         guessCount = 0;
         correctGuess = false;
         $('#userGuess').val('');
+        $('#feedback').empty();
         $('#count').text(guessCount);
         $('#guessList li').remove();
-        num = (Math.floor(Math.random()*10));
+        num = (Math.floor(Math.random()*100));
         console.log("new random number is " + num);
     }
 
+
+/*--- Clear guess text section ---*/
+var clearGuess = function() {
+  $("#userGuess").val("").focus();
+};
 
 
